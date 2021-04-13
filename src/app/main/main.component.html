@@ -1,25 +1,54 @@
 <div class="container">
   <div class="row">
     <div class="table-wrapper">
-      <table>
-        <thead>
-        <tr>
-          <th>PRODUCTS</th>
-          <th>PRICE</th>
-          <th>QUANTITY</th>
-          <th>TOTAL</th>
-        </tr>
-        </thead>
+      <div class="item-details-table">
+        <table>
+          <thead>
+          <tr>
+            <th>PRODUCTS</th>
+            <th>PRICE</th>
+            <th>QUANTITY</th>
+            <th>TOTAL</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td colspan="4" style="height: 3rem; background: white; text-align: center;">THERE ARE NOT PRODUCTS</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <table id="calculation-table">
         <tbody>
+        <tr>
+          <td>Sub Total</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>VAT Tax</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Discount</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td></td>
+        </tr>
         </tbody>
       </table>
+      <div class="button-wrapper">
+        <button class="cancel-btn">Cancel Sale</button>
+        <button class="process-btn">Process Sale</button>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="item-wrapper" *ngFor="let item of itemsList">
       <div *ngIf="item.image" class="image" [style.background-image]="'url(../../assets/images/'+ item['image'] +')'">
-        <div class="content">
-          <p class="category-name">{{ item.category | uppercase }}</p>
+        <p class="category-name">{{ item.category | uppercase }}</p>
+        <div class="content" (mouseover)="onHover($event)" (mouseleave)="mouseLeaveEvent($event)">
           <p class="price">{{ item.price | currency }}</p>
           <p class="description">{{ item.description | uppercase }}</p>
         </div>

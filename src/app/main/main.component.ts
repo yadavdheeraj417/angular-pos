@@ -142,4 +142,18 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public onHover(e: any): void {
+    const elements = e.target.children;
+    for (const element of elements) {
+      element.style.display = 'block';
+    }
+  }
+
+  public mouseLeaveEvent(e: any): void {
+    const elements = e.target.children;
+    for (const element of elements) {
+      element.style.display = 'none';
+    }
+  }
+
 }
