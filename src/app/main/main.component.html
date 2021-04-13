@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+        <tr>
+          <th>PRODUCTS</th>
+          <th>PRICE</th>
+          <th>QUANTITY</th>
+          <th>TOTAL</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="item-wrapper" *ngFor="let item of itemsList">
+      <div *ngIf="item.image" class="image" [style.background-image]="'url(../../assets/images/'+ item['image'] +')'">
+        <div class="content">
+          <p class="category-name">{{ item.category | uppercase }}</p>
+          <p class="price">{{ item.price | currency }}</p>
+          <p class="description">{{ item.description | uppercase }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

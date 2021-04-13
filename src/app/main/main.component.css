@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-direction: row;
+}
+
+.row {
+  flex: 1 1 0;
+  background-color: rgba(0, 0, 0, 0.05);
+  margin: 0.5rem;
+}
+
+table {
+  width: 100%;
+}
+
+.item-wrapper .image {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.item-wrapper {
+  margin: 0.5rem;
+  display: inline-block;
+}
+
+.item-wrapper .image .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #561b1b;
+  border-radius: 5px;
+  opacity: 0.6;
+}
+
+.content p {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 0.2rem;
+}
+
+.content p:not(:first-child) {
+  margin-top: 0.2rem;
+  font-size: 0.65rem;
+}
+
+.category-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.content .price, .content .description {
+  display: none;
+}
+
+.content .price:hover, .content .description:hover {
+  display: block;
+}
+
+.table-wrapper {
+  padding: 0.5rem;
+}
