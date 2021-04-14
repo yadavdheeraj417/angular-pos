@@ -41,6 +41,7 @@ table {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  cursor: pointer;
 }
 
 .content p {
@@ -55,10 +56,15 @@ table {
 }
 
 .category-name {
-  font-size: 0.8rem;
+  font-size: 0.85rem !important;
   font-weight: 500;
   text-align: center;
   color: #ffffff;
+  display: block !important;
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  width: 100%;
 }
 
 .content .price, .content .description {
@@ -72,7 +78,7 @@ table {
 .table-wrapper {
   padding: 0.5rem;
   position: relative;
-  height: 100%;
+  height: 30rem;
 }
 
 .button-wrapper {
@@ -107,9 +113,129 @@ table {
   overflow: auto;
 }
 
-.calculation-table {
+#calculation-table {
+  margin-top: 0.5rem;
+  background-color: #ffffff;
+}
+
+#calculation-table, td {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-collapse: collapse;
+}
+
+#calculation-table tbody tr td {
+  width: 10rem;
+  font-size: 0.85rem;
+  padding: 0.3rem;
+}
+
+#calculation-table tbody tr td:first-child {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+#calculation-table tbody tr td:not(:first-child) {
+  text-align: right;
+}
+
+.modal-container {
   position: absolute;
-  bottom: 6rem;
-  height: 7rem;
+  top: 0;
   left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-container .modal {
+  background-color: #ffffff;
+  position: relative;
+}
+
+@media only screen and (min-width: 786px) {
+  .modal-container .modal {
+    min-width: 50%;
+    min-height: 50vh;
+  }
+}
+
+@media only screen and (max-width: 786px) {
+  .modal-container .modal {
+    min-width: 80%;
+    min-height: 50vh;
+  }
+}
+
+.closeCaret {
+  padding: 0.5rem 1rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.closeCaret i {
+  color: red;
+  cursor: pointer;
+}
+
+.modal-container .modal h2 {
+  text-align: center;
+  background: #2d43da;
+  margin: 0;
+  padding: 0.8rem;
+  color: #fff;
+  font-weight: 400;
+  font-size: 1.4rem;
+}
+
+.modal-content {
+  padding: 0.5rem;
+}
+
+.modal-content .saleNumber {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.modal-content .date {
+  font-size: 0.9rem;
+  margin-top: 0;
+}
+
+.modal-footer {
+  text-align: center;
+}
+
+.close-modal-btn {
+  margin: 0.5rem;
+  width: 90%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.receiptTable, .last-table {
+  border-collapse: collapse;
+}
+
+.last-table {
+  margin-top: 1rem;
+}
+
+.receiptTable tbody tr td, .last-table tbody tr td {
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0.3rem;
+  border-color: white;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+#item-details-table thead th:nth-child(3),
+#item-details-table thead th:nth-child(4),
+#item-details-table thead th:nth-child(5) {
+  text-align: right;
 }

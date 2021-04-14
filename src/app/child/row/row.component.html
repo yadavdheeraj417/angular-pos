@@ -1,0 +1,16 @@
+<table>
+  <tbody>
+    <tr>
+      <td>
+        <span>{{ data['name'] | titlecase }}</span>
+      </td>
+      <td>{{ data['price'] | number: '1.2-2' }}</td>
+      <td>
+        <i class="fa fa-minus-square" aria-hidden="true" (click)="onMinusClick()"></i>
+        <span>{{data.quantity | number}}</span>
+        <i class="fa fa-plus-square" aria-hidden="true" (click)="onPlusClick()"></i>
+      </td>
+      <td>{{getTotal(data.price, data.quantity) | number: '1.2-2'}} EUR</td>
+    </tr>
+  </tbody>
+</table>

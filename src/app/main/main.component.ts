@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Items } from '../models/items';
 
 @Component({
   selector: 'app-main',
@@ -137,6 +138,17 @@ export class MainComponent implements OnInit {
       description: ''
     }
   ];
+  subTotal = 0;
+  noOfItems = 0;
+  vatTaxPercent = 0.1;
+  vatTaxAmount = 0;
+  discountPercent = 0.1;
+  discountAmount = 0;
+  cartItems: Array<Items> = [];
+  toggleDisplay = 'table-row';
+  modalDisplay = 'none';
+  saleDate = new Date();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -156,4 +168,71 @@ export class MainComponent implements OnInit {
     }
   }
 
+  public onClick(e: Items): void {
+    this.toggleDisplay = 'none';
+    const item = this.cartItems.filter(x => x.name === e.name);
+    if (item.length > 0) {
+      e.quantity = (e.quantity || 0) + 1;
+    } else {
+      e.quantity = 1;
+      this.cartItems.push(e);
+    }
+    this.noOfItems = this.cartItems.reduce((a, b) => a + (b.quantity ? b.quantity : 0), 0);
+    this.calculateTotals();
+  }
+
+  public onDoubleClick(e: Items): void {
+    const item = this.cartItems.filter(x => x.name === e.name);
+    if (item.length > 0) {
+      e.quantity = (e.quantity || 0) + 1;
+    }
+    this.calculateTotals();
+  }
+
+  public deleteRow(item: Items): void {
+    this.cartItems = this.cartItems.filter(x => x.name !== item.name);
+    this.noOfItems = this.cartItems.reduce((a, b) => a + (b.quantity ? b.quantity : 0), 0);
+    if (this.cartItems.length <= 0) {
+      this.toggleDisplay = 'table-row';
+      this.subTotal = 0;
+      this.vatTaxAmount = 0;
+      this.discountAmount = 0;
+    }
+    this.calculateTotals();
+  }
+
+  public calculateTotals(): void {
+    this.subTotal = 0;
+    for (const row of this.cartItems) {
+      this.subTotal += (row.quantity || 0) * Number(row.price);
+    }
+    this.vatTaxAmount = this.subTotal * this.vatTaxPercent;
+    this.discountAmount = this.subTotal * this.discountPercent;
+  }
+
+  public cancelSale(): void {
+    this.cartItems = [];
+    this.calculateTotals();
+    this.toggleDisplay = 'table-row';
+  }
+
+  processSale(): void {
+    this.modalDisplay = 'block';
+  }
+
+  closeModal(): void {
+    this.modalDisplay = 'none';
+  }
+
+  public Num(str: string): number {
+    return Number(str);
+  }
+
+  getTotal(price: string, quantity: number = 0): number {
+    return this.Num(price) * quantity;
+  }
+
+  public closeBtnClick(): void {
+    window.location.reload();
+  }
 }

@@ -1,0 +1,37 @@
+table tr td {
+  padding: 0.3rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+table {
+  width: 100%;
+}
+
+table tr td:first-child {
+  text-align: left !important;
+  width: 10rem;
+}
+
+table tr td:nth-child(3) {
+  width: 6rem;
+  text-align: right;
+}
+
+table tr td:last-child {
+  text-align: right !important;
+  width: 6rem;
+}
+
+.fa-plus-square {
+  margin-left: 0.5rem;
+}
+
+.fa-minus-square {
+  margin-right: 0.5rem;
+}
+
+.fa-plus-square, .fa-minus-square {
+  font-size: 1.2rem;
+  cursor: pointer;
+}

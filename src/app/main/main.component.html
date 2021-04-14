@@ -2,9 +2,10 @@
   <div class="row">
     <div class="table-wrapper">
       <div class="item-details-table">
-        <table>
+        <table id="item-details-table">
           <thead>
           <tr>
+            <th></th>
             <th>PRODUCTS</th>
             <th>PRICE</th>
             <th>QUANTITY</th>
@@ -12,8 +13,16 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td colspan="4" style="height: 3rem; background: white; text-align: center;">THERE ARE NOT PRODUCTS</td>
+          <tr [style.display]="toggleDisplay">
+            <td colspan="5" style="height: 3rem; background: white; text-align: center;">THERE ARE NOT PRODUCTS</td>
+          </tr>
+          <tr *ngFor="let data of cartItems">
+            <td style="text-align: center;">
+              <i style="color: red; cursor: pointer;" class="fa fa-trash-o" aria-hidden="true" (click)="deleteRow(data)"></i>
+            </td>
+            <td colspan="4">
+              <app-row [data]="data"></app-row>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -22,36 +31,96 @@
         <tbody>
         <tr>
           <td>Sub Total</td>
-          <td></td>
+          <td>{{subTotal | number: '1.2-2'}} EUR</td>
+          <td>{{noOfItems}} Items</td>
         </tr>
         <tr>
           <td>VAT Tax</td>
-          <td></td>
+          <td>{{vatTaxPercent | percent}}</td>
+          <td>{{ vatTaxAmount | number: '1.2-2' }}</td>
         </tr>
         <tr>
           <td>Discount</td>
-          <td></td>
+          <td>{{discountPercent | percent}}</td>
+          <td>{{ discountAmount | number: '1.2-2' }}</td>
         </tr>
         <tr>
           <td>Total</td>
-          <td></td>
+          <td style="color: forestgreen;" colspan="2">{{ subTotal + vatTaxAmount - discountAmount | number: '1.2-2' }} EUR</td>
         </tr>
         </tbody>
       </table>
       <div class="button-wrapper">
-        <button class="cancel-btn">Cancel Sale</button>
-        <button class="process-btn">Process Sale</button>
+        <button class="cancel-btn" (click)="cancelSale()">Cancel Sale</button>
+        <button class="process-btn" (click)="processSale()">Process Sale</button>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="item-wrapper" *ngFor="let item of itemsList">
-      <div *ngIf="item.image" class="image" [style.background-image]="'url(../../assets/images/'+ item['image'] +')'">
-        <p class="category-name">{{ item.category | uppercase }}</p>
-        <div class="content" (mouseover)="onHover($event)" (mouseleave)="mouseLeaveEvent($event)">
+      <div class="image" [style.background-image]="'url(../../assets/images/'+ item['image'] +')'">
+        <div class="content" (mouseover)="onHover($event)" (mouseleave)="mouseLeaveEvent($event)" (dblclick)="onDoubleClick(item)" (click)="onClick(item)">
+          <p class="category-name">{{ item.name | uppercase }}</p>
           <p class="price">{{ item.price | currency }}</p>
           <p class="description">{{ item.description | uppercase }}</p>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-container" [style.display]="modalDisplay">
+  <div class="container" style="justify-content: center; margin-top: 1rem;">
+    <div class="modal">
+      <div class="closeCaret">
+        <i class="fa fa-times" aria-hidden="true" (click)="closeModal()"></i>
+      </div>
+      <h2>Receipt</h2>
+      <div class="modal-content">
+        <p class="saleNumber">Sale No: 0012</p>
+        <p class="date">Date: {{ saleDate | date: 'MM-dd-yyyy hh:mm:ss' }}</p>
+        <table class="receiptTable">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let vl of cartItems; let i = index;">
+            <td>{{i + 1}}</td>
+            <td>{{ vl.name }}</td>
+            <td>{{ vl.quantity }}</td>
+            <td>{{ getTotal(vl.price, vl.quantity) }}</td>
+          </tr>
+          </tbody>
+        </table>
+
+        <table class="last-table">
+          <thead>
+          <tr>
+            <th>Total Items</th>
+            <th>{{ noOfItems }}</th>
+            <th>Total</th>
+            <th>{{ subTotal }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td colspan="2" style="text-align: right;">Discount</td>
+            <td colspan="2" style="text-align: right">{{ discountPercent | percent }}</td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align: right;">VAT</td>
+            <td colspan="2" style="text-align: right">{{ vatTaxPercent | percent }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="close-modal-btn" (click)="closeBtnClick()">Close</button>
       </div>
     </div>
   </div>
