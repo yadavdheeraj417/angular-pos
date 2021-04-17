@@ -21,7 +21,7 @@
               <i style="color: red; cursor: pointer;" class="fa fa-trash-o" aria-hidden="true" (click)="deleteRow(data)"></i>
             </td>
             <td colspan="4">
-              <app-row [data]="data"></app-row>
+              <app-row (changeEventEmitter)="updateValue($event)" [data]="data"></app-row>
             </td>
           </tr>
           </tbody>

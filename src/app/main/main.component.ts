@@ -235,4 +235,8 @@ export class MainComponent implements OnInit {
   public closeBtnClick(): void {
     window.location.reload();
   }
+
+  public updateValue(data: Items): void {
+    this.calculateTotals();
+  }
 }

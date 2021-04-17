@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Items } from '../../models/items';
 
 @Component({
@@ -8,6 +8,7 @@ import { Items } from '../../models/items';
 })
 export class RowComponent implements OnInit {
   @Input() data: Items = {category: '', description: '', image: '', name: '', price: '', quantity: 0};
+  @Output() changeEventEmitter = new EventEmitter<Items>();
   constructor() { }
 
   ngOnInit(): void {
@@ -26,10 +27,12 @@ export class RowComponent implements OnInit {
     if (this.data.quantity > 1) {
       // @ts-ignore
       this.data.quantity = this.data.quantity - 1;
+      this.changeEventEmitter.emit(this.data);
     }
   }
   public onPlusClick(): void {
     // @ts-ignore
     this.data.quantity = this.data.quantity + 1;
+    this.changeEventEmitter.emit(this.data);
   }
 }
